@@ -31,6 +31,7 @@ class DoctrineCrudGenerator extends Generator
     protected $entity;
     protected $entitySingularized;
     protected $entityPluralized;
+    protected $entityName;
     protected $metadata;
     protected $format;
     protected $actions;
@@ -72,6 +73,7 @@ class DoctrineCrudGenerator extends Generator
         $entity = str_replace('\\', '/', $entity);
         $entityParts = explode('/', $entity);
         $entityName = end($entityParts);
+        $this->entityName = lcfirst($entityName);
         $this->entitySingularized = lcfirst(Inflector::singularize($entityName));
         $this->entityPluralized = lcfirst(Inflector::pluralize($entityName));
         $this->bundle = $bundle;
@@ -180,6 +182,7 @@ class DoctrineCrudGenerator extends Generator
             'entity' => $this->entity,
             'entity_singularized' => $this->entitySingularized,
             'entity_pluralized' => $this->entityPluralized,
+            'entity_name' => $this->entityName,
             'identifier' => $this->metadata->identifier[0],
             'entity_class' => $entityClass,
             'namespace' => $this->bundle->getNamespace(),
